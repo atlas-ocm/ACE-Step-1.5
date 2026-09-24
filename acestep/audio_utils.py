@@ -203,7 +203,7 @@ class AudioSaver:
             elif isinstance(e, subprocess.TimeoutExpired):
                 reason = "ffmpeg MP3 export timed out after 120 seconds."
             else:
-                stderr = e.stderr.decode('utf-8', errors='ignore') if e.stderr else str(e)
+                stderr = e.stderr.decode("utf-8", errors="ignore") if e.stderr else str(e)
                 reason = f"ffmpeg MP3 export failed: {stderr}"
 
             # The WAV was already synthesized successfully before the ffmpeg
@@ -220,8 +220,8 @@ class AudioSaver:
         finally:
             try:
                 temp_wav_path.unlink(missing_ok=True)
-            except Exception:
-                pass
+            except OSError as exc:
+                logger.warning(f"[AudioSaver] Failed to remove temporary WAV file {temp_wav_path}: {exc}")
 
     def save_audio(
         self,

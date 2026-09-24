@@ -345,7 +345,7 @@ class AudioSaverFormatTests(unittest.TestCase):
         output_path = Path(self.temp_dir) / "test.mp3"
 
         with patch(
-            'acestep.audio_utils.subprocess.run',
+            "acestep.audio_utils.subprocess.run",
             side_effect=FileNotFoundError("ffmpeg not found"),
         ):
             with self.assertRaises(AudioExportDegradedError) as ctx:
@@ -365,7 +365,7 @@ class AudioSaverFormatTests(unittest.TestCase):
         output_path = Path(self.temp_dir) / "test.mp3"
 
         with patch(
-            'acestep.audio_utils.subprocess.run',
+            "acestep.audio_utils.subprocess.run",
             side_effect=subprocess_module.TimeoutExpired(cmd="ffmpeg", timeout=120),
         ):
             with self.assertRaises(AudioExportDegradedError) as ctx:
@@ -379,7 +379,7 @@ class AudioSaverFormatTests(unittest.TestCase):
         output_path = Path(self.temp_dir) / "test.mp3"
 
         with patch(
-            'acestep.audio_utils.subprocess.run',
+            "acestep.audio_utils.subprocess.run",
             side_effect=FileNotFoundError("ffmpeg not found"),
         ):
             with self.assertRaises(AudioExportDegradedError) as ctx:
@@ -401,10 +401,10 @@ class AudioSaverFormatTests(unittest.TestCase):
 
         with (
             patch(
-                'acestep.audio_utils.subprocess.run',
+                "acestep.audio_utils.subprocess.run",
                 side_effect=FileNotFoundError("ffmpeg not found"),
             ),
-            patch('acestep.audio_utils.shutil.move', side_effect=OSError("disk full")),
+            patch("acestep.audio_utils.shutil.move", side_effect=OSError("disk full")),
         ):
             with self.assertRaises(RuntimeError) as ctx:
                 saver._save_mp3(self.sample_audio, output_path, self.sample_rate)
